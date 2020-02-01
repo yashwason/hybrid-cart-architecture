@@ -25,18 +25,27 @@
 
             <div class="action-btns for-<%= product._id %>">
                 <span
-                 class="add-to-cart" 
-                 data-id="<%= product._id %>" 
-                 data-title="<%= product.title %>" 
-                 data-price="<%= product.price %>" 
-                 data-color="<%= product.color %>"
-                 data-description="<%= product.description %>">
-                 Add to Cart
+                    class="add-to-cart" 
+                    data-id="<%= product._id %>" 
+                    data-title="<%= product.title %>" 
+                    data-price="<%= product.price %>" 
+                    data-color="<%= product.color %>"
+                    data-description="<%= product.description %>">
+                    Add to Cart
                 </span>
+
+                <% if(cartSession && cartSession.items[product._id]){ %>
+                <span class="remove-from-cart for-<%= product._id %>" data-id="<%= product._id %>">Remove From Cart</span>
+                <% } %>
             </div>
+
             <div class="qty-changers">
                 <span data-id="<%= product._id %>" class="decrease-qty for-<%= product._id %>"> - </span>
+                <% if(cartSession && cartSession.items[product._id]){ %>
+                <span class="product-qty for-<%= product._id %>"><span><%= cartSession.items[product._id].qty %></span> pieces </span>
+                <% } else { %>
                 <span class="product-qty for-<%= product._id %>"><span>0</span> pieces </span>
+                <% } %>
                 <span
                  class="increase-qty for-<%= product._id %>"
                  data-id="<%= product._id %>" 
@@ -50,6 +59,6 @@
         <% }); %>
     </div>
 
-    <script type="module" src="/scripts/common-bundle.js"></script>
+    <script src="/scripts/common-bundle.js"></script>
 </body>
 </html>
